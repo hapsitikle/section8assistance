@@ -121,17 +121,17 @@
             transition: width 0.4s ease;
         }
         
-        /* Question Styles */
         .question-container {
-            flex-grow: 1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
+    flex-grow: 1;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
         
         .question-container.active {
-            opacity: 1;
-        }
-        
+    opacity: 1;
+    transform: translateY(0);
+}
         .question {
             font-size: 18px;
             font-weight: bold;
@@ -458,15 +458,9 @@
                 <!-- Questions will be inserted here via JavaScript -->
             </div>
             
-            <div class="button-container">
-                <button id="prev-btn" class="btn btn-secondary" style="visibility: hidden;">Previous</button>
-                <button id="next-btn" class="btn btn-disabled">Continue</button>
-            </div>
         </div>
         
-        <div class="timer-container">
-            Due to high demand, your session will expire in <span id="timer">5:00</span>
-        </div>
+        
         
         <footer>
             <div class="disclaimer">
@@ -496,199 +490,175 @@
     
     <script>
         // Quiz data
-        const quizData = [
-            {
-                question: "Have you received a Section 8 Housing Choice Voucher in the past 12 months?",
-                options: [
-                    "Yes, I currently receive assistance",
-                    "Yes, but my benefits were recently reduced or paused",
-                    "I'm on the waitlist",
-                    "No, but I'm struggling to afford rent"
-                ]
-            },
-            {
-                question: "How many people currently live in your household (including yourself)?",
-                options: [
-                    "1",
-                    "2",
-                    "3–4",
-                    "5 or more"
-                ]
-            },
-            {
-                question: "Has your housing authority contacted you about upcoming changes to your benefits or application status?",
-                options: [
-                    "Yes, I've received a notice",
-                    "No, but I'm worried",
-                    "No contact yet",
-                    "I'm not sure"
-                ]
-            },
-            {
-                question: "If you were to lose your housing assistance, where would your family be able to stay?",
-                options: [
-                    "I have no backup—this is our only housing",
-                    "We could stay with friends or family temporarily",
-                    "A shelter or car would be our last resort",
-                    "We could afford short-term housing, but not for long"
-                ]
+const quizData = [
+    {
+        question: "Have you received a Section 8 Housing Choice Voucher in the past 12 months?",
+        options: [
+            "Yes, I currently receive assistance",
+            "Yes, but my benefits were recently reduced or paused",
+            "I'm on the waitlist",
+            "No, but I'm struggling to afford rent"
+        ]
+    },
+    {
+        question: "How many people currently live in your household (including yourself)?",
+        options: [
+            "1",
+            "2",
+            "3–4",
+            "5 or more"
+        ]
+    },
+    {
+        question: "Has your housing authority contacted you about upcoming changes to your benefits or application status?",
+        options: [
+            "Yes, I've received a notice",
+            "No, but I'm worried",
+            "No contact yet",
+            "I'm not sure"
+        ]
+    },
+    {
+        question: "If you were to lose your housing assistance, where would your family be able to stay?",
+        options: [
+            "I have no backup—this is our only housing",
+            "We could stay with friends or family temporarily",
+            "A shelter or car would be our last resort",
+            "We could afford short-term housing, but not for long"
+        ]
+    }
+];
+
+// Elements
+const questionContainer = document.getElementById('question-container');
+const progressLabel = document.getElementById('progress-label');
+const progressPercentage = document.getElementById('progress-percentage');
+const progressFill = document.querySelector('.progress-fill');
+const resultsModal = document.getElementById('results-modal');
+
+// Quiz state
+let currentQuestionIndex = 0;
+const answers = [];
+
+// Initialize quiz
+function initQuiz() {
+    showQuestion(currentQuestionIndex);
+}
+
+// Show question
+function showQuestion(index) {
+    questionContainer.classList.remove('active');
+    
+    setTimeout(() => {
+        questionContainer.innerHTML = '';
+        
+        const questionEl = document.createElement('div');
+        questionEl.classList.add('question');
+        questionEl.innerText = quizData[index].question;
+        questionContainer.appendChild(questionEl);
+        
+        const optionsContainer = document.createElement('div');
+        optionsContainer.classList.add('options-container');
+        
+        quizData[index].options.forEach((option, optionIndex) => {
+            const optionEl = document.createElement('div');
+            optionEl.classList.add('option');
+            if (answers[index] === optionIndex) {
+                optionEl.classList.add('selected');
             }
-        ];
-        
-        // Elements
-        const questionContainer = document.getElementById('question-container');
-        const progressLabel = document.getElementById('progress-label');
-        const progressPercentage = document.getElementById('progress-percentage');
-        const progressFill = document.querySelector('.progress-fill');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const resultsModal = document.getElementById('results-modal');
-        
-        // Quiz state
-        let currentQuestionIndex = 0;
-        const answers = [];
-        
-        // Initialize quiz
-        function initQuiz() {
-            showQuestion(currentQuestionIndex);
-            
-            prevBtn.addEventListener('click', showPreviousQuestion);
-            nextBtn.addEventListener('click', handleNextButton);
-        }
-        
-        // Show question
-        function showQuestion(index) {
-            questionContainer.classList.remove('active');
-            
-            setTimeout(() => {
-                questionContainer.innerHTML = '';
-                
-                const questionEl = document.createElement('div');
-                questionEl.classList.add('question');
-                questionEl.innerText = quizData[index].question;
-                questionContainer.appendChild(questionEl);
-                
-                const optionsContainer = document.createElement('div');
-                optionsContainer.classList.add('options-container');
-                
-                quizData[index].options.forEach((option, optionIndex) => {
-                    const optionEl = document.createElement('div');
-                    optionEl.classList.add('option');
-                    if (answers[index] === optionIndex) {
-                        optionEl.classList.add('selected');
-                    }
-                    optionEl.innerText = option;
-                    optionEl.addEventListener('click', () => selectOption(optionIndex));
-                    optionsContainer.appendChild(optionEl);
-                });
-                
-                questionContainer.appendChild(optionsContainer);
-                
-                updateProgress();
-                
-                if (index === 0) {
-                    prevBtn.style.visibility = 'hidden';
-                } else {
-                    prevBtn.style.visibility = 'visible';
-                }
-                
-                if (answers[index] !== undefined) {
-                    nextBtn.classList.remove('btn-disabled');
-                    nextBtn.classList.add('btn-primary');
-                } else {
-                    nextBtn.classList.add('btn-disabled');
-                    nextBtn.classList.remove('btn-primary');
-                }
-                
-                setTimeout(() => {
-                    questionContainer.classList.add('active');
-                }, 10);
-            }, 300);
-        }
-        
-        // Select option
-        function selectOption(optionIndex) {
-            answers[currentQuestionIndex] = optionIndex;
-            
-            const options = document.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            options[optionIndex].classList.add('selected');
-            
-            nextBtn.classList.remove('btn-disabled');
-            nextBtn.classList.add('btn-primary');
-        }
-        
-        // Update progress
-        function updateProgress() {
-            const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
-            progressLabel.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
-            progressPercentage.innerText = `${percentage}%`;
-            progressFill.style.width = `${percentage}%`;
-        }
-        
-        // Show previous question
-        function showPreviousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-            }
-        }
-        
-        // Handle next button
-        function handleNextButton() {
-            if (nextBtn.classList.contains('btn-disabled')) {
-                return;
-            }
-            
-            if (currentQuestionIndex < quizData.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-            } else {
-                showResults();
-            }
-        }
-        
-        // Show results
-        function showResults() {
-            resultsModal.classList.add('active');
-        }
-        
-        // Timer functionality
-        function startTimer(duration) {
-            let timer = duration;
-            const timerElement = document.getElementById('timer');
-            
-            const interval = setInterval(function() {
-                const minutes = parseInt(timer / 60, 10);
-                const seconds = parseInt(timer % 60, 10);
-                
-                timerElement.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-                
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    timerElement.textContent = "EXPIRED";
-                }
-            }, 1000);
-        }
-        
-        // Current readers functionality
-        function updateReaderCount() {
-            const readerCount = document.getElementById('reader-count');
-            const baseCount = 200;
-            const randomRange = 100;
-            
-            setInterval(function() {
-                const randomCount = Math.floor(Math.random() * randomRange) + baseCount;
-                readerCount.textContent = randomCount + ' people filling out now';
-            }, 8000);
-        }
-        
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initQuiz();
-            startTimer(5 * 60); // 5 minutes
-            updateReaderCount();
+            optionEl.innerText = option;
+            optionEl.addEventListener('click', () => selectOption(optionIndex));
+            optionsContainer.appendChild(optionEl);
         });
+        
+        questionContainer.appendChild(optionsContainer);
+        
+        updateProgress();
+        
+        setTimeout(() => {
+            questionContainer.classList.add('active');
+        }, 10);
+    }, 300);
+}
+
+// Select option
+function selectOption(optionIndex) {
+    answers[currentQuestionIndex] = optionIndex;
+    
+    const options = document.querySelectorAll('.option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    options[optionIndex].classList.add('selected');
+    
+    // Add a slight delay before advancing to the next question
+    // This gives the user time to see their selection
+    setTimeout(() => {
+        if (currentQuestionIndex < quizData.length - 1) {
+            // Move to the next question if not on the last question
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        } else {
+            // Show results if on the last question
+            showResults();
+        }
+    }, 600); // 600ms delay - adjust as needed
+}
+
+// Update progress
+function updateProgress() {
+    const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
+    progressLabel.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+    progressPercentage.innerText = `${percentage}%`;
+    progressFill.style.width = `${percentage}%`;
+}
+
+// Show results
+function showResults() {
+    resultsModal.classList.add('active');
+}
+
+// Current readers functionality
+function updateReaderCount() {
+    const readerCount = document.getElementById('reader-count');
+    const baseCount = 200;
+    const randomRange = 100;
+    
+    setInterval(function() {
+        const randomCount = Math.floor(Math.random() * randomRange) + baseCount;
+        readerCount.textContent = randomCount + ' people filling out now';
+    }, 8000);
+}
+
+// Timer function
+function startTimer(duration) {
+    let timer = duration;
+    const timerElement = document.getElementById('timer');
+    
+    if (timerElement) {
+        const interval = setInterval(function() {
+            const minutes = parseInt(timer / 60, 10);
+            const seconds = parseInt(timer % 60, 10);
+            
+            timerElement.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+            
+            if (--timer < 0) {
+                clearInterval(interval);
+                timerElement.textContent = "EXPIRED";
+            }
+        }, 1000);
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    updateReaderCount();
+    
+    // Check if timer element exists before starting timer
+    const timerElement = document.getElementById('timer');
+    if (timerElement) {
+        startTimer(5 * 60); // 5 minutes
+    }
+});
     </script>
 </body>
 </html>
