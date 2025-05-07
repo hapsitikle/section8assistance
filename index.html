@@ -371,6 +371,75 @@
             left: -2px;
             animation: pulse 2s infinite;
         }
+
+        /* Fix image responsiveness for all screen sizes */
+.main-image, .secondary-image {
+    max-width: 100%;
+}
+
+        /* For smaller screens, adjust image dimensions */
+@media (max-width: 480px) {
+    .main-image, .secondary-image {
+        width: 100%;
+        height: auto;
+    }
+}
+
+        @media (max-width: 480px) {
+    .headline {
+        font-size: 24px;
+        margin: 15px 0 8px;
+    }
+    
+    .subheadline {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 20px;
+        margin: 25px 0 12px;
+    }
+}
+
+        @media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .metadata {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .date {
+        margin-top: 5px;
+    }
+}
+
+        @media (max-width: 480px) {
+    .cta-button {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+    
+    .arrow {
+        font-size: 18px;
+    }
+    
+    .badge {
+        margin: 3px;
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+    
+    .floating-cta {
+        bottom: 15px;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
     </style>
 </head>
 <body>
