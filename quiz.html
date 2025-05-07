@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 8 Housing Assistance Eligibility Check</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333333;
+            background-color: #F8F9FA;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .logo {
+            font-family: Georgia, Times, serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0A2463;
+        }
+        
+        .urgency-tag {
+            background-color: #D90429;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        /* Quiz Container */
+        .quiz-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin: 20px 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-title {
+            font-family: Georgia, Times, serif;
+            font-size: 24px;
+            color: #0A2463;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-subtitle {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #E1E5F2;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #0A2463;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        
+        /* Question Styles */
+        .question-container {
+            flex-grow: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .question-container.active {
+            opacity: 1;
+        }
+        
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0A2463;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            background-color: #f8f9fa;
+            border: 2px solid #E1E5F2;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            border-color: #0A2463;
+            background-color: #f0f3f8;
+        }
+        
+        .option.selected {
+            border-color: #0A2463;
+            background-color: #E1E5F2;
+        }
+        
+        .option:before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #999;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+        .option.selected:after {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #0A2463;
+        }
+        
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        
+        .btn-primary {
+            background-color: #FF6B35;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #ff5a1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255,107,53,0.4);
+        }
+        
+        .btn-secondary {
+            background-color: #E1E5F2;
+            color: #0A2463;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d1d9ee;
+        }
+        
+        .btn-disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Results Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .modal-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-family: Georgia, Times, serif;
+            font-size: 24px;
+            color: #0A2463;
+            margin-bottom: 15px;
+        }
+        
+        .modal-description {
+            margin-bottom: 25px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background-color: #FF6B35;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255,107,53,0.4);
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .badge {
+            background-color: #E1E5F2;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .badge span {
+            margin-right: 5px;
+        }
+        
+        /* Timer */
+        .timer-container {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #D90429;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 20px 0;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .disclaimer {
+            margin-top: 10px;
+            font-size: 11px;
+        }
+        
+        /* Current readers indicator */
+        .current-readers {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            z-index: 50;
+        }
+        
+        .reader-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            margin-right: 8px;
+            position: relative;
+        }
+        
+        .reader-dot::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(76, 175, 80, 0.3);
+            border-radius: 50%;
+            top: -2px;
+            left: -2px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 480px) {
+            .quiz-title {
+                font-size: 22px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .progress-text {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Housing Assistance Portal</div>
+            <div class="urgency-tag">DEADLINE: MAY 19</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1 class="quiz-title">Section 8 Housing Assistance Eligibility Check</h1>
+                <p class="quiz-subtitle">Answer 4 simple questions to see if you qualify for assistance</p>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span id="progress-label">Question 1 of 4</span>
+                    <span id="progress-percentage">25%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%;"></div>
+                </div>
+            </div>
+            
+            <div id="question-container" class="question-container active">
+                <!-- Questions will be inserted here via JavaScript -->
+            </div>
+            
+            <div class="button-container">
+                <button id="prev-btn" class="btn btn-secondary" style="visibility: hidden;">Previous</button>
+                <button id="next-btn" class="btn btn-disabled">Continue</button>
+            </div>
+        </div>
+        
+        <div class="timer-container">
+            Due to high demand, your session will expire in <span id="timer">5:00</span>
+        </div>
+        
+        <footer>
+            <div class="disclaimer">
+                This page is not affiliated with any government agency. This is an eligibility verification service that helps individuals navigate the Section 8 application process.
+            </div>
+        </footer>
+    </div>
+    
+    <div class="current-readers">
+        <div class="reader-dot"></div>
+        <span id="reader-count">243 people filling out now</span>
+    </div>
+    
+    <div id="results-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h2 class="modal-title">Great News!</h2>
+            <p class="modal-description">Based on your answers, you may qualify for Section 8 assistance in your area.</p>
+            <a href="https://example.com/leadform" class="cta-btn">Continue to Apply for Assistance</a>
+            <div class="trust-badges">
+                <div class="badge"><span>✓</span> Secure Application</div>
+                <div class="badge"><span>✓</span> Quick Results</div>
+                <div class="badge"><span>✓</span> 24/7 Support</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Quiz data
+        const quizData = [
+            {
+                question: "Have you received a Section 8 Housing Choice Voucher in the past 12 months?",
+                options: [
+                    "Yes, I currently receive assistance",
+                    "Yes, but my benefits were recently reduced or paused",
+                    "I'm on the waitlist",
+                    "No, but I'm struggling to afford rent"
+                ]
+            },
+            {
+                question: "How many people currently live in your household (including yourself)?",
+                options: [
+                    "1",
+                    "2",
+                    "3–4",
+                    "5 or more"
+                ]
+            },
+            {
+                question: "Has your housing authority contacted you about upcoming changes to your benefits or application status?",
+                options: [
+                    "Yes, I've received a notice",
+                    "No, but I'm worried",
+                    "No contact yet",
+                    "I'm not sure"
+                ]
+            },
+            {
+                question: "If you were to lose your housing assistance, where would your family be able to stay?",
+                options: [
+                    "I have no backup—this is our only housing",
+                    "We could stay with friends or family temporarily",
+                    "A shelter or car would be our last resort",
+                    "We could afford short-term housing, but not for long"
+                ]
+            }
+        ];
+        
+        // Elements
+        const questionContainer = document.getElementById('question-container');
+        const progressLabel = document.getElementById('progress-label');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressFill = document.querySelector('.progress-fill');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const resultsModal = document.getElementById('results-modal');
+        
+        // Quiz state
+        let currentQuestionIndex = 0;
+        const answers = [];
+        
+        // Initialize quiz
+        function initQuiz() {
+            showQuestion(currentQuestionIndex);
+            
+            prevBtn.addEventListener('click', showPreviousQuestion);
+            nextBtn.addEventListener('click', handleNextButton);
+        }
+        
+        // Show question
+        function showQuestion(index) {
+            questionContainer.classList.remove('active');
+            
+            setTimeout(() => {
+                questionContainer.innerHTML = '';
+                
+                const questionEl = document.createElement('div');
+                questionEl.classList.add('question');
+                questionEl.innerText = quizData[index].question;
+                questionContainer.appendChild(questionEl);
+                
+                const optionsContainer = document.createElement('div');
+                optionsContainer.classList.add('options-container');
+                
+                quizData[index].options.forEach((option, optionIndex) => {
+                    const optionEl = document.createElement('div');
+                    optionEl.classList.add('option');
+                    if (answers[index] === optionIndex) {
+                        optionEl.classList.add('selected');
+                    }
+                    optionEl.innerText = option;
+                    optionEl.addEventListener('click', () => selectOption(optionIndex));
+                    optionsContainer.appendChild(optionEl);
+                });
+                
+                questionContainer.appendChild(optionsContainer);
+                
+                updateProgress();
+                
+                if (index === 0) {
+                    prevBtn.style.visibility = 'hidden';
+                } else {
+                    prevBtn.style.visibility = 'visible';
+                }
+                
+                if (answers[index] !== undefined) {
+                    nextBtn.classList.remove('btn-disabled');
+                    nextBtn.classList.add('btn-primary');
+                } else {
+                    nextBtn.classList.add('btn-disabled');
+                    nextBtn.classList.remove('btn-primary');
+                }
+                
+                setTimeout(() => {
+                    questionContainer.classList.add('active');
+                }, 10);
+            }, 300);
+        }
+        
+        // Select option
+        function selectOption(optionIndex) {
+            answers[currentQuestionIndex] = optionIndex;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            nextBtn.classList.remove('btn-disabled');
+            nextBtn.classList.add('btn-primary');
+        }
+        
+        // Update progress
+        function updateProgress() {
+            const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressLabel.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            progressPercentage.innerText = `${percentage}%`;
+            progressFill.style.width = `${percentage}%`;
+        }
+        
+        // Show previous question
+        function showPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+        
+        // Handle next button
+        function handleNextButton() {
+            if (nextBtn.classList.contains('btn-disabled')) {
+                return;
+            }
+            
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            } else {
+                showResults();
+            }
+        }
+        
+        // Show results
+        function showResults() {
+            resultsModal.classList.add('active');
+        }
+        
+        // Timer functionality
+        function startTimer(duration) {
+            let timer = duration;
+            const timerElement = document.getElementById('timer');
+            
+            const interval = setInterval(function() {
+                const minutes = parseInt(timer / 60, 10);
+                const seconds = parseInt(timer % 60, 10);
+                
+                timerElement.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    timerElement.textContent = "EXPIRED";
+                }
+            }, 1000);
+        }
+        
+        // Current readers functionality
+        function updateReaderCount() {
+            const readerCount = document.getElementById('reader-count');
+            const baseCount = 200;
+            const randomRange = 100;
+            
+            setInterval(function() {
+                const randomCount = Math.floor(Math.random() * randomRange) + baseCount;
+                readerCount.textContent = randomCount + ' people filling out now';
+            }, 8000);
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuiz();
+            startTimer(5 * 60); // 5 minutes
+            updateReaderCount();
+        });
+    </script>
+</body>
+</html>
