@@ -6,429 +6,519 @@
     <title>Section 8 Housing Assistance Eligibility Check</title>
     <style>
         /* Global Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        
-        body {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #333333;
-            background-color: #F8F9FA;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px 15px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .logo {
-            font-family: Georgia, Times, serif;
-            font-size: 20px;
-            font-weight: bold;
-            color: #0A2463;
-        }
-        
-        .urgency-tag {
-            background-color: #D90429;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        
-        /* Quiz Container */
-        .quiz-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            padding: 25px;
-            margin: 20px 0;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .quiz-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .quiz-title {
-            font-family: Georgia, Times, serif;
-            font-size: 24px;
-            color: #0A2463;
-            margin-bottom: 10px;
-        }
-        
-        .quiz-subtitle {
-            font-size: 16px;
-            color: #555;
-        }
-        
-        /* Progress Bar */
-        .progress-container {
-            margin-bottom: 20px;
-        }
-        
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background-color: #E1E5F2;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background-color: #0A2463;
-            border-radius: 4px;
-            transition: width 0.4s ease;
-        }
-        
-        .question-container {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333333;
+    background-color: #F8F9FA;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+header {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.logo {
+    font-family: Georgia, Times, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0A2463;
+}
+
+.urgency-tag {
+    background-color: #D90429;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Quiz Container */
+.quiz-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    padding: 25px;
+    margin: 20px 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quiz-title {
+    font-family: Georgia, Times, serif;
+    font-size: 24px;
+    color: #0A2463;
+    margin-bottom: 10px;
+}
+
+.quiz-subtitle {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #E1E5F2;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #0A2463;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+.question-container {
     flex-grow: 1;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
-        
-        .question-container.active {
+
+.question-container.active {
     opacity: 1;
     transform: translateY(0);
 }
-        .question {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #0A2463;
-        }
-        
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .option {
-            background-color: #f8f9fa;
-            border: 2px solid #E1E5F2;
-            border-radius: 8px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 16px;
-            position: relative;
-            padding-left: 45px;
-        }
-        
-        .option:hover {
-            border-color: #0A2463;
-            background-color: #f0f3f8;
-        }
-        
-        .option.selected {
-            border-color: #0A2463;
-            background-color: #E1E5F2;
-        }
-        
-        .option:before {
-            content: "";
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid #999;
-            border-radius: 50%;
-            background-color: white;
-        }
-        
-        .option.selected:after {
-            content: "";
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #0A2463;
-        }
-        
-        /* Button Styles */
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-            border: none;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-        
-        .btn-primary {
-            background-color: #FF6B35;
-            color: white;
-            box-shadow: 0 4px 10px rgba(255,107,53,0.3);
-        }
-        
-        .btn-primary:hover {
-            background-color: #ff5a1c;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(255,107,53,0.4);
-        }
-        
-        .btn-secondary {
-            background-color: #E1E5F2;
-            color: #0A2463;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #d1d9ee;
-        }
-        
-        .btn-disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
-        .btn-disabled:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        /* Results Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            max-width: 90%;
-            width: 500px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-        
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .modal-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .modal-title {
-            font-family: Georgia, Times, serif;
-            font-size: 24px;
-            color: #0A2463;
-            margin-bottom: 15px;
-        }
-        
-        .modal-description {
-            margin-bottom: 25px;
-            font-size: 16px;
-            color: #555;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            background-color: #FF6B35;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 15px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(255,107,53,0.3);
-            margin-top: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(255,107,53,0.4);
-        }
-        
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .badge {
-            background-color: #E1E5F2;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .badge span {
-            margin-right: 5px;
-        }
-        
-        /* Timer */
-        .timer-container {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #D90429;
-            font-weight: bold;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 20px 0;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-        }
-        
-        .disclaimer {
-            margin-top: 10px;
-            font-size: 11px;
-        }
-        
-        /* Current readers indicator */
-        .current-readers {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            z-index: 50;
-        }
-        
-        .reader-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            margin-right: 8px;
-            position: relative;
-        }
-        
-        .reader-dot::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: rgba(76, 175, 80, 0.3);
-            border-radius: 50%;
-            top: -2px;
-            left: -2px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 480px) {
-            .quiz-title {
-                font-size: 22px;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 15px;
-            }
-            
-            .option {
-                padding: 12px 12px 12px 40px;
-                font-size: 15px;
-            }
-            
-            .progress-text {
-                font-size: 12px;
-            }
-        }
 
-        @media (max-width: 360px) {
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0A2463;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    background-color: #f8f9fa;
+    border: 2px solid #E1E5F2;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    position: relative;
+    padding-left: 45px;
+}
+
+.option:hover {
+    border-color: #0A2463;
+    background-color: #f0f3f8;
+}
+
+.option.selected {
+    border-color: #0A2463;
+    background-color: #E1E5F2;
+}
+
+.option:before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.option.selected:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #0A2463;
+}
+
+/* Button Styles */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-primary {
+    background-color: #FF6B35;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+}
+
+.btn-primary:hover {
+    background-color: #ff5a1c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255,107,53,0.4);
+}
+
+.btn-secondary {
+    background-color: #E1E5F2;
+    color: #0A2463;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d9ee;
+}
+
+.btn-disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Results Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 90%;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-family: Georgia, Times, serif;
+    font-size: 24px;
+    color: #0A2463;
+    margin-bottom: 15px;
+}
+
+.modal-description {
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #555;
+}
+
+.cta-btn {
+    display: inline-block;
+    background-color: #FF6B35;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(255,107,53,0.4);
+}
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badge {
+    background-color: #E1E5F2;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.badge span {
+    margin-right: 5px;
+}
+
+/* Timer */
+.timer-container {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #D90429;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    padding: 20px 0;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.disclaimer {
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+/* Current readers indicator */
+.current-readers {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    z-index: 50;
+}
+
+.reader-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+}
+
+.reader-dot::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(76, 175, 80, 0.3);
+    border-radius: 50%;
+    top: -2px;
+    left: -2px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* =================== */
+/* MOBILE OPTIMIZATIONS */
+/* =================== */
+
+/* Base mobile styles for all screen sizes */
+@media (max-width: 767px) {
+    /* Prevent horizontal scrolling */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Make options more tappable */
+    .option {
+        min-height: 58px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Increase CTA button size for easier tapping */
+    .cta-btn {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Fix modal size */
+    .modal-content {
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    /* Fix readers counter */
+    .current-readers {
+        font-size: 11px;
+        padding: 6px 10px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+/* Existing responsive styles */
+@media (max-width: 480px) {
+    .quiz-title {
+        font-size: 22px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+    
+    .option {
+        padding: 12px 12px 12px 40px;
+        font-size: 15px;
+    }
+    
+    .progress-text {
+        font-size: 12px;
+    }
+    
+    .options-container {
+        gap: 10px;
+    }
+    
+    .option {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .modal-content {
+        padding: 20px 15px;
+        max-width: 95%;
+    }
+    
+    .modal-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+    
+    .modal-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .cta-btn {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+    
+    .logo {
+        margin-bottom: 8px;
+        text-align: center;
+    }
+    
+    .urgency-tag {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
     .container {
         padding: 15px 10px;
     }
@@ -450,57 +540,124 @@
         padding: 10px 10px 10px 35px;
         font-size: 14px;
     }
-}
-
-        @media (max-width: 480px) {
-    .options-container {
-        gap: 10px;
+    
+    .option:before {
+        width: 18px;
+        height: 18px;
+        left: 10px;
     }
     
-    .option {
-        min-height: 60px; /* Ensures touch targets are big enough */
-        display: flex;
-        align-items: center;
+    .option.selected:after {
+        width: 8px;
+        height: 8px;
+        left: 15px;
     }
-}
-
-        @media (max-width: 480px) {
+    
     .modal-content {
-        padding: 20px 15px;
-        max-width: 95%;
+        padding: 18px 12px;
     }
     
-    .modal-icon {
-        font-size: 40px;
+    .current-readers {
+        padding: 6px 10px;
+        font-size: 10px;
+    }
+}
+
+/* OnePlus Nord and similar device optimization */
+@media (min-width: 385px) and (max-width: 420px) {
+    /* Adjust font sizes */
+    .quiz-title {
+        font-size: 21px;
+    }
+    
+    .quiz-subtitle {
+        font-size: 15px;
+    }
+    
+    .question {
+        font-size: 17px;
+    }
+    
+    /* Adjust option text for better readability */
+    .option {
+        font-size: 15px;
+        padding: 12px 12px 12px 40px;
+        line-height: 1.4;
+    }
+    
+    /* Fix option radio button positioning */
+    .option:before {
+        left: 12px;
+    }
+    
+    .option.selected:after {
+        left: 17px;
+    }
+    
+    /* Make progress text more compact */
+    .progress-text {
+        font-size: 13px;
+    }
+}
+
+/* Fix specific issues for OnePlus Nord and similar devices */
+@media screen and (min-width: 390px) and (max-width: 415px) and (min-height: 800px) {
+    /* Common viewport size for OnePlus Nord */
+    .quiz-container {
+        margin: 15px 0;
+    }
+    
+    /* Specific padding adjustments */
+    .container {
+        padding: 15px 12px;
+    }
+    
+    /* Better spacing for modal */
+    .modal-content {
+        padding: 22px 18px;
+    }
+    
+    /* Fix current readers position */
+    .current-readers {
+        bottom: 12px;
+        left: 12px;
+    }
+}
+
+/* High pixel density device fixes (many Android flagships) */
+@media (-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi) {
+    /* Sharper borders for high density screens */
+    .option {
+        border-width: 1px;
+    }
+    
+    /* Ensure radio buttons appear correctly */
+    .option:before {
+        border-width: 1.5px;
+    }
+}
+
+/* Tall/narrow device optimization */
+@media (max-aspect-ratio: 2/3) {
+    .quiz-header {
+        margin-bottom: 20px;
+    }
+    
+    .progress-container {
         margin-bottom: 15px;
     }
-    
-    .modal-title {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-    
-    .cta-btn {
-        font-size: 16px;
-        padding: 12px 20px;
-    }
 }
 
-        @media (max-width: 480px) {
-    .header-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 0;
+/* Make radio buttons easier to see */
+@media (max-width: 767px) {
+    .option:before {
+        width: 18px;
+        height: 18px;
     }
     
-    .logo {
-        margin-bottom: 8px;
-        text-align: center;
-    }
-    
-    .urgency-tag {
-        font-size: 11px;
-        padding: 3px 6px;
+    .option.selected:after {
+        width: 10px;
+        height: 10px;
     }
 }
     </style>
