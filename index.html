@@ -217,20 +217,6 @@
             margin-right: 5px;
         }
         
-        /* Countdown Timer */
-        .countdown {
-            background-color: #0A2463;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .countdown-value {
-            font-size: 22px;
-        }
         
         /* Urgency Elements */
         .limited-spots {
@@ -398,10 +384,7 @@
         
         <p><span class="highlight">WASHINGTON, D.C.</span> — Recent developments in federal housing policy are set to significantly impact the Section 8 Housing Choice Voucher program, affecting millions of Americans who depend on rental assistance. Housing experts are urging current recipients and applicants to verify their eligibility status <span class="urgent">before the May 19th implementation deadline</span>.</p>
         
-        <div class="countdown">
-            <div>TIME REMAINING TO CONFIRM ELIGIBILITY:</div>
-            <span class="countdown-value">13 DAYS : 07 HOURS : 22 MINUTES</span>
-        </div>
+        
         
         <p>As housing authorities across the nation prepare for these changes, the window for ensuring your benefits are protected under current guidelines is rapidly closing. Housing advocates emphasize that proactive verification is essential for those relying on rental assistance.</p>
         
@@ -519,27 +502,10 @@
             setTimeout(updateSpotsCounter, 60000);
         }
         
-        // Countdown timer
-        function updateCountdown() {
-            const now = new Date();
-            const deadline = new Date('2025-05-19T23:59:59');
-            const timeRemaining = deadline - now;
-            
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            
-            const countdownValue = document.querySelector('.countdown-value');
-            countdownValue.textContent = `${days} DAYS : ${hours.toString().padStart(2, '0')} HOURS : ${minutes.toString().padStart(2, '0')} MINUTES`;
-            
-            setTimeout(updateCountdown, 60000);
-        }
-        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateReaderCount();
             updateSpotsCounter();
-            updateCountdown();
         });
     </script>
 </body>
