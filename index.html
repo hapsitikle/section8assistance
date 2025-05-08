@@ -110,16 +110,16 @@
         }
 
         .secondary-image {
-    width: 600px;            /* Different width than main-image */
-    height: 400px;           /* Different height than main-image */
-    margin-bottom: 20px;
-    border-radius: 5px;
-    display: block;          /* Makes the image a block element */
-    margin-left: auto;       /* Auto margin on left side */
-    margin-right: auto;      /* Auto margin on right side */
-    border: 1px solid #ddd;  /* Optional: adds a subtle border */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* Optional: adds a subtle shadow */
-}
+            width: 600px;            /* Different width than main-image */
+            height: 400px;           /* Different height than main-image */
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: block;          /* Makes the image a block element */
+            margin-left: auto;       /* Auto margin on left side */
+            margin-right: auto;      /* Auto margin on right side */
+            border: 1px solid #ddd;  /* Optional: adds a subtle border */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* Optional: adds a subtle shadow */
+        }
         
         h2 {
             font-family: Georgia, Times, serif;
@@ -307,6 +307,131 @@
                 padding: 0 30px;
             }
         }
+
+        /* NEW: Above the fold summary and CTA */
+        .above-fold-summary {
+            background-color: #E1E5F2;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0 25px;
+            border-left: 5px solid #0A2463;
+        }
+
+        .above-fold-summary p {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .above-fold-cta {
+            display: inline-block;
+            background-color: #FF6B35;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        /* NEW: Sticky Bottom CTA Bar */
+        .sticky-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sticky-cta-button {
+            background-color: #FF6B35;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(255,107,53,0.3);
+            display: inline-block;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* NEW: User comment style social proof */
+        .comment-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 30px 0;
+        }
+
+        .comment-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .comment {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .commenter-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .commenter-name {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .comment-text {
+            margin-bottom: 10px;
+        }
+
+        .comment-likes {
+            font-size: 12px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .like-icon {
+            margin-right: 5px;
+            color: #0A2463;
+        }
         
         /* Floating CTA */
         .floating-cta {
@@ -373,73 +498,88 @@
         }
 
         /* Fix image responsiveness for all screen sizes */
-.main-image, .secondary-image {
-    max-width: 100%;
-}
+        .main-image, .secondary-image {
+            max-width: 100%;
+        }
 
         /* For smaller screens, adjust image dimensions */
-@media (max-width: 480px) {
-    .main-image, .secondary-image {
-        width: 100%;
-        height: auto;
-    }
-}
+        @media (max-width: 480px) {
+            .main-image, .secondary-image {
+                width: 100%;
+                height: auto;
+            }
+        }
 
         @media (max-width: 480px) {
-    .headline {
-        font-size: 24px;
-        margin: 15px 0 8px;
-    }
-    
-    .subheadline {
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
-    
-    h2 {
-        font-size: 20px;
-        margin: 25px 0 12px;
-    }
-}
+            .headline {
+                font-size: 24px;
+                margin: 15px 0 8px;
+            }
+            
+            .subheadline {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+                margin: 25px 0 12px;
+            }
+        }
 
         @media (max-width: 480px) {
-    .container {
-        padding: 0 10px;
-    }
-    
-    .metadata {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .date {
-        margin-top: 5px;
-    }
-}
+            .container {
+                padding: 0 10px;
+            }
+            
+            .metadata {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .date {
+                margin-top: 5px;
+            }
+        }
 
         @media (max-width: 480px) {
-    .cta-button {
-        font-size: 16px;
-        padding: 12px 20px;
-    }
-    
-    .arrow {
-        font-size: 18px;
-    }
-    
-    .badge {
-        margin: 3px;
-        font-size: 12px;
-        padding: 4px 8px;
-    }
-    
-    .floating-cta {
-        bottom: 15px;
-        right: 10px;
-        font-size: 14px;
-        padding: 8px 15px;
-    }
-}
+            .cta-button {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+            
+            .arrow {
+                font-size: 18px;
+            }
+            
+            .badge {
+                margin: 3px;
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            
+            .floating-cta {
+                bottom: 15px;
+                right: 10px;
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+
+            /* Adjust sticky bar for mobile */
+            .sticky-cta-bar {
+                padding: 8px 0;
+            }
+
+            .sticky-cta-button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            /* Bottom margin to prevent content from hiding behind sticky bar */
+            footer {
+                margin-bottom: 60px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -456,6 +596,12 @@
         <h1 class="headline">ALERT: Important Section 8 Housing Assistance Changes Coming in 2025</h1>
         <h2 class="subheadline">New verification requirements and application deadlines impact millions of Americans seeking rental assistance</h2>
         
+        <!-- NEW: Above the fold summary and CTA -->
+        <div class="above-fold-summary">
+            <p>Housing assistance benefits may be at risk with the new May 19th deadline. <span class="urgent">Verify your eligibility now to protect your benefits</span> before new stricter requirements take effect.</p>
+            <a href="quiz.html" class="above-fold-cta">Check Your Eligibility Now »</a>
+        </div>
+        
         <div class="metadata">
             <div class="author">
                 <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Author" class="author-img">
@@ -467,8 +613,6 @@
         <img src="images/family.jpg" alt="Capitol Building" class="main-image">
         
         <p><span class="highlight">WASHINGTON, D.C.</span> — Recent developments in federal housing policy are set to significantly impact the Section 8 Housing Choice Voucher program, affecting millions of Americans who depend on rental assistance. Housing experts are urging current recipients and applicants to verify their eligibility status <span class="urgent">before the May 19th implementation deadline</span>.</p>
-        
-        
         
         <p>As housing authorities across the nation prepare for these changes, the window for ensuring your benefits are protected under current guidelines is rapidly closing. Housing advocates emphasize that proactive verification is essential for those relying on rental assistance.</p>
         
@@ -487,6 +631,55 @@
         
         <div class="quote">
             "With only 1 in 4 eligible households currently receiving aid due to funding limitations, staying ahead of these administrative changes is crucial for families to maintain their housing stability," explains Ann Oliva, CEO of the National Alliance to End Homelessness.
+        </div>
+        
+        <!-- NEW: User comment style social proof section -->
+        <div class="comment-section">
+            <div class="comment-title">
+                <span class="comment-icon">💬</span> Recent Comments (23)
+            </div>
+            
+            <div class="comment">
+                <div class="comment-header">
+                    <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Commenter" class="commenter-img">
+                    <div class="commenter-name">Sarah Johnson</div>
+                    <div class="comment-time">2 hours ago</div>
+                </div>
+                <div class="comment-text">
+                    Just verified my status yesterday. The process was much easier than I expected. Definitely recommend doing it before the deadline!
+                </div>
+                <div class="comment-likes">
+                    <span class="like-icon">👍</span> 37 likes
+                </div>
+            </div>
+            
+            <div class="comment">
+                <div class="comment-header">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Commenter" class="commenter-img">
+                    <div class="commenter-name">David Martinez</div>
+                    <div class="comment-time">5 hours ago</div>
+                </div>
+                <div class="comment-text">
+                    My sister almost lost her housing assistance last year during a similar change. Thank you for sharing this information - I'm sending it to everyone I know who might be affected.
+                </div>
+                <div class="comment-likes">
+                    <span class="like-icon">👍</span> 24 likes
+                </div>
+            </div>
+            
+            <div class="comment">
+                <div class="comment-header">
+                    <img src="https://randomuser.me/api/portraits/women/58.jpg" alt="Commenter" class="commenter-img">
+                    <div class="commenter-name">Lisa Thompson</div>
+                    <div class="comment-time">Yesterday</div>
+                </div>
+                <div class="comment-text">
+                    I work at a community center and we've been telling everyone about these changes. The verification process is definitely worth doing - several families I know have already been affected by the stricter requirements.
+                </div>
+                <div class="comment-likes">
+                    <span class="like-icon">👍</span> 42 likes
+                </div>
+            </div>
         </div>
         
         <h2>Real Families Facing Real Challenges</h2>
@@ -538,7 +731,10 @@
         <p>With increasing competition for limited housing resources, and only 1 in 4 eligible households currently receiving assistance, taking proactive steps to secure your status has never been more important.</p>
     </div>
     
-    <a href="quiz.html" class="floating-cta">CHECK ELIGIBILITY</a>
+    <!-- NEW: Sticky bottom CTA bar (replacing floating CTA) -->
+    <div class="sticky-cta-bar">
+        <a href="quiz.html" class="sticky-cta-button animate-pulse">CHECK YOUR ELIGIBILITY NOW</a>
+    </div>
     
     <div class="current-readers">
         <div class="reader-dot"></div>
@@ -557,16 +753,6 @@
     </footer>
     
     <script>
-        // Floating CTA visibility
-        window.addEventListener('scroll', function() {
-            const floatingCta = document.querySelector('.floating-cta');
-            if (window.scrollY > window.innerHeight * 0.5) {
-                floatingCta.style.display = 'block';
-            } else {
-                floatingCta.style.display = 'none';
-            }
-        });
-        
         // Current readers randomization
         function updateReaderCount() {
             const readerCount = document.getElementById('reader-count');
