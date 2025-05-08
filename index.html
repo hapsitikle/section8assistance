@@ -771,7 +771,7 @@
             </a>
             
             <div class="limited-spots">
-                LIMITED AVAILABILITY: Due to high demand, we can only process <span class="spots-counter">472</span> more applications today
+                LIMITED AVAILABILITY: Due to high demand, we can only process <span class="spots-counter">237</span> more applications today
             </div>
             
             <div class="trust-badges">
@@ -802,23 +802,23 @@
     
     <script>
         // Current readers randomization
-        function updateReaderCount() {
-            const readerCount = document.getElementById('reader-count');
-            const randomCount = Math.floor(Math.random() * (450 - 300 + 1)) + 300;
-            readerCount.textContent = randomCount + ' people reading now';
-            setTimeout(updateReaderCount, 30000);
-        }
+    function updateReaderCount() {
+        const readerCount = document.getElementById('reader-count');
+        const randomCount = Math.floor(Math.random() * (450 - 300 + 1)) + 300;
+        readerCount.textContent = randomCount + ' people reading now';
+        setTimeout(updateReaderCount, 30000);
+    }
         
         // Spots counter decreasing
-        function updateSpotsCounter() {
-            const spotsCounter = document.querySelector('.spots-counter');
-            let currentSpots = parseInt(spotsCounter.textContent);
-            if (currentSpots > 1) {
-                currentSpots -= Math.floor(Math.random() * 3) + 1;
-                spotsCounter.textContent = currentSpots;
-            }
-            setTimeout(updateSpotsCounter, 60000);
+    function updateSpotsCounter() {
+        const spotsCounter = document.querySelector('.spots-counter');
+        let currentSpots = parseInt(spotsCounter.textContent);
+        if (currentSpots > 1) {
+            currentSpots -= Math.floor(Math.random() * 2) + 1; // Changed to decrease by 1-2 at a time
+            spotsCounter.textContent = currentSpots;
         }
+        setTimeout(updateSpotsCounter, 60000);
+    }
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
