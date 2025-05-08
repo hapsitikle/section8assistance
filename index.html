@@ -40,6 +40,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative; /* Added for positioning the readers count */
         }
         
         .logo {
@@ -52,6 +53,43 @@
         .nav {
             font-size: 12px;
             color: #666;
+        }
+        
+        /* MODIFIED: Current readers indicator moved to top right */
+        .current-readers {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .reader-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            margin-right: 8px;
+            position: relative;
+        }
+        
+        .reader-dot::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(76, 175, 80, 0.3);
+            border-radius: 50%;
+            top: -2px;
+            left: -2px;
+            animation: pulse 2s infinite;
         }
         
         /* Article Styles */
@@ -461,42 +499,6 @@
             animation: pulse 2s infinite;
         }
         
-        /* Current readers indicator */
-        .current-readers {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            z-index: 100;
-        }
-        
-        .reader-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            margin-right: 8px;
-            position: relative;
-        }
-        
-        .reader-dot::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: rgba(76, 175, 80, 0.3);
-            border-radius: 50%;
-            top: -2px;
-            left: -2px;
-            animation: pulse 2s infinite;
-        }
-
         /* Fix image responsiveness for all screen sizes */
         .main-image, .secondary-image {
             max-width: 100%;
@@ -540,6 +542,24 @@
             .date {
                 margin-top: 5px;
             }
+            
+            /* MODIFIED: Adjust current readers for mobile */
+            .current-readers {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .reader-dot {
+                width: 6px;
+                height: 6px;
+            }
+            
+            .reader-dot::after {
+                width: 10px;
+                height: 10px;
+                top: -2px;
+                left: -2px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -579,6 +599,34 @@
             footer {
                 margin-bottom: 60px;
             }
+            
+            /* MODIFIED: Further adjust header layout for very small screens */
+            .header-container {
+                flex-direction: column;
+                padding: 5px 0;
+            }
+            
+            .logo {
+                margin-bottom: 5px;
+            }
+            
+            .current-readers {
+                position: static;
+                transform: none;
+                margin: 5px auto 0;
+                width: fit-content;
+            }
+        }
+        
+        /* ADDED: Special media query for medium screens to ensure readers count displays properly */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .header-container {
+                padding: 0 15px;
+            }
+            
+            .current-readers {
+                right: 15px;
+            }
         }
     </style>
 </head>
@@ -587,6 +635,11 @@
         <div class="container header-container">
             <div class="logo">Housing News Daily</div>
             <div class="nav">Home > Housing News > Section 8 Updates</div>
+            <!-- MOVED: Current readers indicator to top right -->
+            <div class="current-readers">
+                <div class="reader-dot"></div>
+                <span id="reader-count">387 people reading now</span>
+            </div>
         </div>
     </header>
     
@@ -734,11 +787,6 @@
     <!-- NEW: Sticky bottom CTA bar (replacing floating CTA) -->
     <div class="sticky-cta-bar">
         <a href="quiz.html" class="sticky-cta-button animate-pulse">CHECK YOUR ELIGIBILITY NOW</a>
-    </div>
-    
-    <div class="current-readers">
-        <div class="reader-dot"></div>
-        <span id="reader-count">387 people reading now</span>
     </div>
     
     <footer class="container">
