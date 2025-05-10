@@ -3,25 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<!-- Start NB Pixel Snippet -->
-<script>
-!function(e,n,t,i,p,a,s){
-  e[i]=e[i]||function(){
-    (e[i].p=e[i].p||[]).push(arguments)
-  },e[i].p=e[i].p||[];
-  p=n.createElement(t);a=n.getElementsByTagName(t)[0];
-  p.async=1;p.src='https://static.newsbreak.com/business/tracking/nbpixel.js?t='+864e5*Math.ceil(new Date()/864e5);
-  a.parentNode.insertBefore(p,a)
-}(window,document,'script','nbpix');
-
-// initialize with your pixel ID:
-nbpix('init','ID-1916834714530971650');
-// track a page-load
-nbpix('event','pageload');
-</script>
-<!-- End NB Pixel Snippet -->
-
     <title>Section 8 Housing Assistance Eligibility Check</title>
     <style>
         /* Global Styles */
@@ -834,12 +815,7 @@ footer {
             <div class="modal-icon">✅</div>
             <h2 class="modal-title">Great News!</h2>
             <p class="modal-description">Based on your answers, you may qualify for Section 8 assistance in your area.</p>
-            <a href="https://glstrck.com/aff_c?offer_id=2300&aff_id=134431"
-   class="cta-btn"
-   onclick="nbpix('event','click_button');">
-  Tap to See If You Qualify – Only Few Spots Left Today!
-</a>
-
+            <a href="https://glstrck.com/aff_c?offer_id=2300&aff_id=134431" class="cta-btn">Tap to See If You Qualify – Only Few Spots Left Today!</a>
             <div class="limited-spots-note">LIMITED AVAILABILITY: Only 193 application spots remaining today</div>
             <div class="trust-badges">
                 <div class="badge"><span>✓</span> Secure Application</div>
@@ -967,9 +943,9 @@ function selectOption(optionIndex) {
 // Update progress
 function updateProgress() {
     const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
-    progressLabel.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
-    progressPercentage.innerText = `${percentage}%`;
-    progressFill.style.width = `${percentage}%`;
+    progressLabel.innerText = Question ${currentQuestionIndex + 1} of ${quizData.length};
+    progressPercentage.innerText = ${percentage}%;
+    progressFill.style.width = ${percentage}%;
 }
 
 // Show results
@@ -1007,7 +983,7 @@ function updateSpotsCounter() {
         setInterval(function() {
             if (currentSpots > 1) {
                 currentSpots -= Math.floor(Math.random() * 2) + 1;
-                spotsCounter.textContent = `LIMITED AVAILABILITY: Only ${currentSpots} application spots remaining today`;
+                spotsCounter.textContent = LIMITED AVAILABILITY: Only ${currentSpots} application spots remaining today;
             }
         }, 30000); // Update every 30 seconds
     }
