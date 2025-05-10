@@ -943,9 +943,9 @@ function selectOption(optionIndex) {
 // Update progress
 function updateProgress() {
     const percentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
-    progressLabel.innerText = Question ${currentQuestionIndex + 1} of ${quizData.length};
-    progressPercentage.innerText = ${percentage}%;
-    progressFill.style.width = ${percentage}%;
+    progressLabel.innerText = "Question " + (currentQuestionIndex + 1) + " of " + quizData.length;
+    progressPercentage.innerText = percentage + "%";
+    progressFill.style.width = percentage + "%";
 }
 
 // Show results
@@ -983,7 +983,7 @@ function updateSpotsCounter() {
         setInterval(function() {
             if (currentSpots > 1) {
                 currentSpots -= Math.floor(Math.random() * 2) + 1;
-                spotsCounter.textContent = LIMITED AVAILABILITY: Only ${currentSpots} application spots remaining today;
+                spotsCounter.textContent = "LIMITED AVAILABILITY: Only " + currentSpots + " application spots remaining today";
             }
         }, 30000); // Update every 30 seconds
     }
