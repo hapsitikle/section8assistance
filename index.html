@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -599,8 +598,6 @@
             }
         }
     </style>
-</head>
-<body>
     <!-- Mgid Sensor -->
 <script type="text/javascript">
     (function() {
@@ -621,6 +618,11 @@
     })();
 </script>
 <!-- /Mgid Sensor -->
+    <script type="text/javascript">
+    window._mgq = window._mgq || [];
+</script>
+</head>
+<body>
     <!-- Quiz Entry Page -->
     <div class="container" id="quiz-entry">
         <div class="quiz-header">
@@ -643,7 +645,7 @@
                 </div>
             </div>
             
-            <button class="cta-button" id="start-quiz">CHECK MY ELIGIBILITY NOW</button>
+            <button class="cta-button" id="start-quiz" onclick="_mgq.push(['MgSensorInvoke', 'Quiz_Start'])">CHECK MY ELIGIBILITY NOW</button>
             
             <div class="trust-indicators">
     <div class="trust-indicator">
@@ -907,18 +909,6 @@
         document.addEventListener('DOMContentLoaded', function() {
     // Start quiz button
     document.getElementById('start-quiz').addEventListener('click', function() {
-        // Track MGID conversion for Quiz_Start
-        try {
-            w.MgSensorData = w.MgSensorData || [];
-            w.MgSensorData.push({
-                "type": "event",
-                "cid": 906329, // Your MGID CID from your pixel
-                "event_name": "Quiz_Start" // This must match your conversion name in MGID exactly
-            });
-            console.log("MGID conversion tracked: Quiz_Start");
-        } catch(e) {
-            console.error("Failed to track MGID conversion", e);
-        }
         
         // Continue with normal quiz start behavior
         document.getElementById('quiz-entry').style.display = 'none';
@@ -936,14 +926,6 @@
     
             // Add conversion tracking for results completion
         document.getElementById('unlock-button').addEventListener('click', function() {
-            // Track MGID conversion for Form_Submit
-            try {
-                window._mgq = window._mgq || [];
-                window._mgq.push(["MgSensorInvoke", "Form_Submit"]);
-                console.log("MGID conversion tracked: Form_Submit");
-            } catch(e) {
-                console.error("Failed to track MGID conversion", e);
-            }
             
             // Redirect to form fill page with affiliate link
             window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
@@ -1082,20 +1064,10 @@ function handleStickyCTA() {
     }
 }
 
-// Initialize sticky CTA
 document.addEventListener('DOMContentLoaded', function() {
     const stickyUnlockButton = document.getElementById('sticky-unlock-button');
     if (stickyUnlockButton) {
         stickyUnlockButton.addEventListener('click', function() {
-            // Track MGID conversion for Form_Submit
-            try {
-                window._mgq = window._mgq || [];
-                window._mgq.push(["MgSensorInvoke", "Form_Submit"]);
-                console.log("MGID conversion tracked: Form_Submit (sticky button)");
-            } catch(e) {
-                console.error("Failed to track MGID conversion", e);
-            }
-            
             // Direct redirect to affiliate link
             window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
         });
