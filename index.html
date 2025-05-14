@@ -1020,8 +1020,8 @@ document.getElementById('unlock-button').addEventListener('click', function() {
         document.getElementById('calculating').style.display = 'none';
         document.getElementById('results-content').style.display = 'block';
         
-        // Calculate score (for demo: random score between 85-98)
-        const score = Math.floor(Math.random() * 14) + 85;
+        // Calculate score (random score between 75-85)
+        const score = Math.floor(Math.random() * 11) + 75;
         document.getElementById('score-value').textContent = score + '%';
         
         // Position score marker
@@ -1130,20 +1130,10 @@ window.addEventListener('scroll', function() {
         document.addEventListener('DOMContentLoaded', function() {
             startCountdown('countdown-timer', 15 * 60); // 15 minute countdown
             
-            // Animated counter for social proof
+            // Set static counter value instead of animation
             const counterElement = document.querySelector('.counter');
             if (counterElement) {
-                const target = 1247;
-                let current = 1000;
-                const increment = Math.ceil((target - current) / 30);
-                const interval = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(interval);
-                    }
-                    counterElement.textContent = current;
-                }, 80);
+                counterElement.textContent = '1247';
             }
         });
     </script>
