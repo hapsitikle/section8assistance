@@ -1,13 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PWD3KXNT');</script>
-<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Section 8 Housing Assistance Eligibility Check</title>
@@ -607,10 +601,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWD3KXNT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
     <!-- Quiz Entry Page -->
     <div class="container" id="quiz-entry">
         <div class="quiz-header">
@@ -896,12 +886,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         document.addEventListener('DOMContentLoaded', function() {
     // Start quiz button
-document.getElementById('start-quiz').addEventListener('click', function() {
-    document.getElementById('quiz-entry').style.display = 'none';
-    document.getElementById('quiz').style.display = 'block';
-    loadQuestion(0);
-    startCountdown('countdown-timer', 15 * 60); // 15 minute countdown
-});
+    document.getElementById('start-quiz').addEventListener('click', function() {
+        // Track MGID conversion for Quiz_Start
+        try {
+            w.MgSensorData = w.MgSensorData || [];
+            w.MgSensorData.push({
+                "type": "event",
+                "cid": 906329, // Your MGID CID from your pixel
+                "event_name": "Quiz_Start" // This must match your conversion name in MGID exactly
+            });
+            console.log("MGID conversion tracked: Quiz_Start");
+        } catch(e) {
+            console.error("Failed to track MGID conversion", e);
+        }
+        
+        // Continue with normal quiz start behavior
+        document.getElementById('quiz-entry').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        loadQuestion(0);
+        startCountdown('countdown-timer', 15 * 60); // 15 minute countdown
+    });
     
     // Option selection
     document.querySelectorAll('.option').forEach(option => {
@@ -910,11 +914,20 @@ document.getElementById('start-quiz').addEventListener('click', function() {
         });
     });
     
-    // Unlock button
-document.getElementById('unlock-button').addEventListener('click', function() {
-    // Redirect to form fill page with affiliate link
-    window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
-});
+            // Add conversion tracking for results completion
+        document.getElementById('unlock-button').addEventListener('click', function() {
+            // Track MGID conversion for Form_Submit
+            try {
+                window._mgq = window._mgq || [];
+                window._mgq.push(["MgSensorInvoke", "Form_Submit"]);
+                console.log("MGID conversion tracked: Form_Submit");
+            } catch(e) {
+                console.error("Failed to track MGID conversion", e);
+            }
+            
+            // Redirect to form fill page with affiliate link
+            window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
+        });
     
     // Exit intent popup
     document.getElementById('popup-stay').addEventListener('click', function() {
@@ -1054,6 +1067,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const stickyUnlockButton = document.getElementById('sticky-unlock-button');
     if (stickyUnlockButton) {
         stickyUnlockButton.addEventListener('click', function() {
+            // Track MGID conversion for Form_Submit
+            try {
+                window._mgq = window._mgq || [];
+                window._mgq.push(["MgSensorInvoke", "Form_Submit"]);
+                console.log("MGID conversion tracked: Form_Submit (sticky button)");
+            } catch(e) {
+                console.error("Failed to track MGID conversion", e);
+            }
+            
             // Direct redirect to affiliate link
             window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
         });
