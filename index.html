@@ -3,1159 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Section 8 Housing Assistance Eligibility Check</title>
+    <title>Section 8 Housing Assistance - Get Help Today</title>
     <style>
-        :root {
-            --dark-blue: #1a2942;
-            --gold: #d4af37;
-            --white: #ffffff;
-            --bright-cta: #ff6b00;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background-color: var(--dark-blue);
-            color: var(--white);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
             line-height: 1.6;
             overflow-x: hidden;
         }
         
         .container {
-            max-width: 100%;
-            padding: 20px;
+            max-width: 480px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            min-height: 100vh;
         }
         
-        .quiz-header {
-            text-align: center;
-            padding: 20px 0;
-        }
-        
-        .main-headline {
-            font-size: 28px;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--white);
-            line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .timer-container {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        
-        .timer-text {
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--gold);
-        }
-        
-        .timer {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--white);
-        }
-        
-        .endorsers {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .endorser {
-            width: 60px;
-            height: 60px;
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             border-radius: 50%;
-            border: 2px solid var(--gold);
-            overflow: hidden;
-            background-color: #f5f5f5;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
         }
         
-        .endorser img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .header-icon svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .subheadline {
+            font-size: 16px;
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .benefits-box {
+            background-color: #f0f8ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e9f2;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .check-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: white;
+        }
+        
+        .benefit-text {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
         }
         
         .cta-button {
             display: block;
-            width: 90%;
-            max-width: 400px;
-            margin: 30px auto;
-            padding: 18px 20px;
-            background-color: var(--bright-cta);
-            color: var(--white);
-            text-align: center;
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
             font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50px;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            margin-bottom: 25px;
         }
         
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(79, 172, 254, 0.5);
         }
         
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .cta-button:active {
+            transform: translateY(0);
         }
         
-        .trust-indicators {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin: 25px 0;
-        flex-wrap: wrap;
-        background-color: rgba(0, 0, 0, 0.2);
-        padding: 15px;
-        border-radius: 8px;
-        border: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    
-    .trust-indicator {
-        display: flex;
-        align-items: center;
-        color: var(--white);
-        font-weight: bold;
-        font-size: 14px;
-        position: relative;
-        padding: 8px 12px;
-    }
-    
-    .trust-indicator::before {
-        content: "";
-        display: inline-block;
-        width: 18px;
-        height: 18px;
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d4af37"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
-        background-size: contain;
-        margin-right: 8px;
-    }
-    
-    .trust-indicator-name {
-        font-weight: bold;
-        color: var(--gold);
-    }
-    
-    .trust-separator {
-        height: 20px;
-        width: 1px;
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-
-        /* Sticky CTA Button */
-.sticky-cta {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--dark-blue);
-    padding: 15px;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 100;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.sticky-cta .cta-button {
-    width: 95%;
-    margin: 0 auto;
-    padding: 15px;
-    font-size: 16px;
-}
-
-/* For smaller mobile screens */
-@media (max-width: 360px) {
-    .sticky-cta .cta-button {
-        font-size: 14px;
-    }
-}
-    
-    @media (min-width: 768px) {
-        .trust-indicators {
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .steps-section {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
-        .trust-indicator {
-            font-size: 16px;
-        }
-    }
-        
-        .social-proof {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
+        .steps-title {
+            font-size: 18px;
+            font-weight: 600;
             text-align: center;
-            margin: 20px 0;
+            margin-bottom: 20px;
+            color: #333;
         }
         
-        .counter {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--gold);
-            margin-bottom: 5px;
-        }
-        
-        .testimonials {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .testimonial {
+        .step {
             display: flex;
             align-items: center;
-            gap: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .testimonial-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--gold);
-        }
-        
-        .testimonial-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .testimonial-content {
-            flex: 1;
-        }
-        
-        .testimonial-name {
-            font-weight: bold;
-            color: var(--gold);
-            margin-bottom: 5px;
-        }
-        
-        .testimonial-text {
-            font-size: 14px;
-        }
-        
-        /* Quiz interface styles */
-        .quiz-container {
-            display: none;
-            position: relative;
-            min-height: 80vh;
-            background-image: linear-gradient(rgba(26, 41, 66, 0.95), rgba(26, 41, 66, 0.95)), url('/api/placeholder/1200/800');
-            background-size: cover;
-            background-position: center;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background-color: var(--gold);
-            border-radius: 4px;
-            width: 10%;
-            transition: width 0.5s ease;
-        }
-        
-        .question-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .question-number {
-            font-size: 14px;
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-        
-        .question-text {
-            font-size: 22px;
-            font-weight: bold;
             margin-bottom: 20px;
         }
         
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
+        .step:last-child {
+            margin-bottom: 0;
         }
         
-        .option {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-        
-        .option:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-        
-        .option.selected {
-            background-color: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
-        }
-        
-        .option-letter {
-            width: 30px;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.1);
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background-color: #4facfe;
+            color: white;
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-weight: bold;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
             margin-right: 15px;
             flex-shrink: 0;
         }
         
-        .education-text {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            font-style: italic;
-            text-align: center;
-            margin-top: 20px;
-            padding: 0 20px;
+        .step-text {
+            font-size: 15px;
+            color: #333;
         }
         
-        /* Results page styles */
-        .results-container {
-            display: none;
+        .trust-section {
+            text-align: center;
             padding: 20px;
-        }
-        
-        .calculating {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .calculating h2 {
-            font-size: 24px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
             margin-bottom: 20px;
-            color: var(--gold);
         }
         
-        .loading-animation {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .loading-icon {
+        .trust-icon {
             width: 40px;
             height: 40px;
-            animation: spin 2s infinite linear;
-        }
-        
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .results-content {
-            display: none;
-        }
-        
-        .score-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .score-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .score-value {
-            font-size: 36px;
-            font-weight: bold;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-        
-        .score-thermometer {
-            width: 80%;
-            max-width: 300px;
-            height: 20px;
-            background: linear-gradient(to right, #ff0000, #ffff00, #00ff00);
-            border-radius: 10px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .score-marker {
-            position: absolute;
-            width: 4px;
-            height: 30px;
-            background-color: #000;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .results-section {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .results-section h3 {
-            font-size: 18px;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-        
-        .results-section ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .results-section li {
-            margin-bottom: 10px;
-        }
-        
-        .results-section p {
-            margin-bottom: 15px;
-        }
-        
-        .lock-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .lock-icon {
-            font-size: 40px;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-        
-        .unlock-cta {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            line-height: 1.3;
-        }
-        
-        .fear-headline {
-            font-size: 16px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #ff6b6b;
-        }
-        
-        .exit-popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .popup-content {
-            background-color: var(--dark-blue);
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid var(--gold);
-        }
-        
-        .popup-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--gold);
-        }
-        
-        .popup-text {
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-        
-        .popup-buttons {
+            margin: 0 auto 10px;
+            background-color: #4caf50;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
         }
         
-        .popup-stay {
-            padding: 15px;
-            background-color: var(--bright-cta);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
+        .trust-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
         }
         
-        .popup-leave {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: underline;
-            cursor: pointer;
+        .trust-text {
             font-size: 14px;
+            color: #666;
+            line-height: 1.5;
         }
         
-        .transition-container {
-            display: none;
-            padding: 20px;
+        .disclaimer {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 30px;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+        
+        .urgency-banner {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .shocking-stat {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            line-height: 1.3;
+        .urgency-text {
+            font-size: 14px;
+            color: #856404;
+            font-weight: 500;
         }
         
-        .stat-highlight {
-            color: #ff6b6b;
-        }
-        
-        @media (min-width: 768px) {
-            .container {
-                max-width: 768px;
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 24px;
             }
             
-            .main-headline {
-                font-size: 36px;
+            .subheadline {
+                font-size: 14px;
             }
             
-            .testimonials {
-                flex-direction: row;
-            }
-            
-            .options-container {
-                max-width: 600px;
-                margin: 0 auto 30px;
+            .cta-button {
+                font-size: 16px;
+                padding: 16px 25px;
             }
         }
     </style>
-    
 </head>
 <body>
-   <!-- Mgid Sensor -->
-<script type="text/javascript">
-    (function() {
-        var d = document, w = window;
-        w.MgSensorData = w.MgSensorData || [];
-        w.MgSensorData.push({
-            cid:906329,
-            project: "a.mgid.com"
-        });
-        var l = "a.mgid.com";
-        var n = d.getElementsByTagName("script")[0];
-        var s = d.createElement("script");
-        s.type = "text/javascript";
-        s.async = true;
-        var dt = !Date.now?new Date().valueOf():Date.now();
-        s.src = "https://" + l + "/mgsensor.js?d=" + dt;
-        n.parentNode.insertBefore(s, n);
-    })();
-</script>
-<!-- /Mgid Sensor -->
-    <script type="text/javascript">
-    window._mgq = window._mgq || [];
-</script>
-    <!-- Quiz Entry Page -->
-    <div class="container" id="quiz-entry">
-        <div class="quiz-header">
-            <h1 class="main-headline">THIS 2-MINUTE QUIZ REVEALS IF YOU QUALIFY FOR SECTION 8 HOUSING ASSISTANCE</h1>
-            
-            <div class="timer-container">
-                <div class="timer-text">IMPORTANT: MAY 19TH DEADLINE APPROACHING</div>
-                <div class="timer" id="countdown-timer">13:45</div>
-            </div>
-            
-            <div class="endorsers">
-                <div class="endorser">
-                    <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="Success Story 1">
-                </div>
-                <div class="endorser">
-                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Success Story 2">
-                </div>
-                <div class="endorser">
-                    <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="Success Story 3">
-                </div>
-            </div>
-            
-            <button class="cta-button" id="start-quiz" onclick="_mgq.push(['MgSensorInvoke', 'Quiz_Start'])">CHECK MY ELIGIBILITY NOW</button>
-            
-            <div class="trust-indicators">
-    <div class="trust-indicator">
-        <span class="trust-indicator-name">Forbes</span>
-    </div>
-    <div class="trust-separator"></div>
-    <div class="trust-indicator">
-        <span class="trust-indicator-name">Business Insider</span>
-    </div>
-    <div class="trust-separator"></div>
-    <div class="trust-indicator">
-        <span class="trust-indicator-name">CNBC</span>
-    </div>
-</div>
-            
-            <div class="social-proof">
-                <div class="counter">1,247</div>
-                <p>families checked their eligibility this month</p>
-            </div>
-            
-            <div class="testimonials">
-                <div class="testimonial">
-                    <div class="testimonial-image">
-                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Testimonial 1">
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-name">Sarah K.</div>
-                        <div class="testimonial-text">"After waiting on a 2-year waitlist, I was about to give up. This service helped me verify my eligibility and secure assistance within 30 days!"</div>
-                    </div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-image">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial 2">
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-name">Michael T.</div>
-                        <div class="testimonial-text">"I had no idea I qualified for housing assistance until I took this quiz. The new verification service saved me from losing benefits when the rules changed."</div>
-                    </div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-image">
-                        <img src="https://randomuser.me/api/portraits/women/57.jpg" alt="Testimonial 3">
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-name">Lisa M.</div>
-                        <div class="testimonial-text">"As a single mom of two, I was struggling with rent until I discovered I was eligible for Section 8. This two-minute quiz changed our lives."</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Quiz Interface -->
-    <div class="quiz-container" id="quiz">
-        <div class="progress-container">
-            <div class="progress-bar" id="progress"></div>
+    <div class="container">
+        <div class="header-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
         </div>
         
-        <div class="question-container">
-            <div class="question-number">Question <span id="current-question">1</span> of 10</div>
-            <div class="question-text" id="question-text">Have you received a Section 8 Housing Choice Voucher in the past 12 months?</div>
+        <h1>Get Section 8 Housing Assistance</h1>
+        <p class="subheadline">Quick & Easy Application for Rent Help</p>
+        
+        <div class="urgency-banner">
+            <p class="urgency-text">⏰ Limited Spots Available - Apply Today!</p>
         </div>
         
-        <div class="options-container">
-            <div class="option" data-value="A">
-                <div class="option-letter">A</div>
-                <div>Yes, I currently receive assistance</div>
+        <div class="benefits-box">
+            <div class="benefit-item">
+                <div class="check-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span class="benefit-text">Pay 30% or less of your income for rent</span>
             </div>
-            <div class="option" data-value="B">
-                <div class="option-letter">B</div>
-                <div>Yes, but my benefits were recently reduced or paused</div>
+            <div class="benefit-item">
+                <div class="check-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span class="benefit-text">Government pays the rest directly</span>
             </div>
-            <div class="option" data-value="C">
-                <div class="option-letter">C</div>
-                <div>I'm on the waitlist</div>
+            <div class="benefit-item">
+                <div class="check-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span class="benefit-text">Choose from approved apartments</span>
             </div>
-            <div class="option" data-value="D">
-                <div class="option-letter">D</div>
-                <div>No, but I'm struggling to afford rent</div>
+            <div class="benefit-item">
+                <div class="check-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span class="benefit-text">Free to apply - No hidden fees</span>
             </div>
         </div>
         
-        <div class="education-text">The Section 8 Housing Choice Voucher Program helps over 2.1 million American households secure affordable housing</div>
-    </div>
-    
-    <!-- Results Calculating Page -->
-    <div class="results-container" id="results">
-        <div class="calculating" id="calculating">
-            <h2>Calculating your eligibility...</h2>
-            <div class="loading-animation">
-                <div class="loading-icon">🏠</div>
-                <div class="loading-icon">📊</div>
-                <div class="loading-icon">📋</div>
-                <div class="loading-icon">✅</div>
-            </div>
-            <p>Analyzing your responses against current Section 8 eligibility requirements...</p>
-        </div>
+        <a href="https://getrewarrrds.com/aff_c?offer_id=2300&aff_id=134431" class="cta-button">
+            Apply Now for Housing Help
+        </a>
         
-        <div class="results-content" id="results-content">
-            <div class="score-container">
-                <h2 class="score-title">Your Section 8 Eligibility Result</h2>
-                <div class="score-value" id="score-value">94%</div>
-                <div class="score-thermometer">
-                    <div class="score-marker" id="score-marker"></div>
-                </div>
-                <p>Based on your responses, you have a strong chance of qualifying for housing assistance</p>
+        <div class="steps-section">
+            <h2 class="steps-title">How to Get Started</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-text">Click the button above to start</div>
             </div>
-            
-            <div class="results-section">
-                <h3>Important Details About Your Results</h3>
-                <p>Your responses indicate you may qualify for the Section 8 Housing Choice Voucher Program, which could cover a significant portion of your monthly rent.</p>
-                <ul>
-                    <li>Based on household size and other factors, you could receive up to $1,200 in monthly housing assistance</li>
-                    <li>You may be eligible for priority placement on waitlists due to your specific circumstances</li>
-                    <li>Upcoming program changes may affect your benefits if not verified before the May 19th deadline</li>
-                </ul>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">Fill out the simple form (2 minutes)</div>
             </div>
-            
-            <div class="results-section">
-                <h3>Next Step: Verify Your Eligibility</h3>
-                <ul>
-                    <li><strong>Access Higher Assistance Amounts:</strong> Complete a full verification to ensure you receive the maximum benefits you qualify for</li>
-                    <li><strong>Beat the Deadline:</strong> With new program changes coming, it's crucial to lock in your benefits now</li>
-                    <li><strong>Skip Waitlists:</strong> Our verification service helps qualified applicants secure expedited processing</li>
-                </ul>
-            </div>
-            
-            <div class="lock-container">
-                <div class="lock-icon">🔒</div>
-                <div class="unlock-cta">VERIFY YOUR ELIGIBILITY BEFORE THE MAY 19TH DEADLINE</div>
-                <div class="fear-headline">Only 193 verification spots remaining today - Don't risk losing your housing assistance!</div>
-                <button class="cta-button" id="unlock-button">COMPLETE MY ELIGIBILITY VERIFICATION NOW →</button>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Get matched with housing assistance</div>
             </div>
         </div>
-    </div>
-    
-    
-    <!-- Exit Intent Popup -->
-    <div class="exit-popup" id="exit-popup">
-        <div class="popup-content">
-            <h2 class="popup-title">WAIT!</h2>
-            <p class="popup-text">You're about to miss out on critical Section 8 assistance! With the May 19th deadline approaching, you could lose your chance to secure housing benefits.</p>
-            <div class="popup-buttons">
-                <button class="popup-stay" id="popup-stay">I WANT TO CHECK MY ELIGIBILITY!</button>
-                <button class="popup-leave" id="popup-leave">No thanks, I can afford full market-rate rent</button>
+        
+        <div class="trust-section">
+            <div class="trust-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
             </div>
+            <p class="trust-text">
+                <strong>Your information is safe & secure</strong><br>
+                We protect your privacy and never share your data
+            </p>
         </div>
+        
+        <a href="https://getrewarrrds.com/aff_c?offer_id=2300&aff_id=134431" class="cta-button">
+            Start Your Application Now
+        </a>
+        
+        <p class="disclaimer">
+            This is a free service to help connect eligible families with Section 8 housing assistance programs. Actual approval depends on local housing authority requirements and availability. U.S. residents only.
+        </p>
     </div>
-    
-    <script>
-        // Quiz questions and options
-        const questions = [
-            {
-                text: "Have you received a Section 8 Housing Choice Voucher in the past 12 months?",
-                options: [
-                    "Yes, I currently receive assistance",
-                    "Yes, but my benefits were recently reduced or paused",
-                    "I'm on the waitlist",
-                    "No, but I'm struggling to afford rent"
-                ],
-                education: "The Section 8 Housing Choice Voucher Program helps over 2.1 million American households secure affordable housing"
-            },
-            {
-                text: "How many people currently live in your household (including yourself)?",
-                options: [
-                    "1",
-                    "2",
-                    "3–4",
-                    "5 or more"
-                ],
-                education: "Household size directly impacts your eligibility and the amount of assistance you may receive"
-            },
-            {
-                text: "Has your housing authority contacted you about upcoming changes to your benefits or application status?",
-                options: [
-                    "Yes, I've received a notice",
-                    "No, but I'm worried",
-                    "No contact yet",
-                    "I'm not sure"
-                ],
-                education: "Recent policy changes are affecting Section 8 recipients across 19 major cities"
-            },
-            {
-                text: "If you were to lose your housing assistance, where would your family be able to stay?",
-                options: [
-                    "I have no backup—this is our only housing",
-                    "We could stay with friends or family temporarily",
-                    "A shelter or car would be our last resort",
-                    "We could afford short-term housing, but not for long"
-                ],
-                education: "Housing insecurity affects over 11 million American families who pay more than 50% of income on housing"
-            },
-            {
-                text: "What percentage of your monthly income currently goes toward housing expenses?",
-                options: [
-                    "Less than 30%",
-                    "30-50%",
-                    "50-70%",
-                    "More than 70%"
-                ],
-                education: "Housing is considered affordable when it costs no more than 30% of household income"
-            },
-            {
-                text: "Have you experienced any of these major life changes in the past 12 months?",
-                options: [
-                    "Loss of income or employment",
-                    "Medical emergency or disability",
-                    "Change in family size (birth, death, divorce)",
-                    "None of the above"
-                ],
-                education: "Life changes can qualify you for emergency housing assistance or priority placement"
-            },
-            {
-                text: "What's your current housing situation?",
-                options: [
-                    "Renting - but struggling to make payments",
-                    "Living with family/friends temporarily",
-                    "In temporary/emergency housing",
-                    "At risk of eviction from current housing"
-                ],
-                education: "Your current housing situation is a key factor in determining priority for assistance"
-            },
-            {
-                text: "Are you aware of the new verification requirements being implemented for housing assistance?",
-                options: [
-                    "No, this is the first I'm hearing about it",
-                    "I've heard something, but don't know the details",
-                    "Yes, but I haven't taken action yet",
-                    "Yes, and I'm concerned about how it affects me"
-                ],
-                education: "New verification requirements are taking effect May 19th and will impact eligibility for many households"
-            },
-            {
-                text: "Which special category might you qualify for? (Select the one that best applies)",
-                options: [
-                    "Elderly (62+) or disabled household",
-                    "Veteran or military family",
-                    "Family with children under 18",
-                    "None of these apply to me"
-                ],
-                education: "Special categories can qualify you for priority placement and additional housing benefits"
-            },
-            {
-                text: "How quickly do you need housing assistance?",
-                options: [
-                    "Immediately - facing potential homelessness",
-                    "Within 30 days - current situation is not sustainable",
-                    "Within 3 months - planning ahead for housing needs",
-                    "Just exploring options for the future"
-                ],
-                education: "Emergency housing needs can qualify you for expedited processing in many jurisdictions"
-            }
-        ];
-        
-        let currentQuestion = 0;
-        let answers = [];
-        let quizTimerId, resultsTimerId;
-        
-        document.addEventListener('DOMContentLoaded', function() {
-    // Start quiz button
-    document.getElementById('start-quiz').addEventListener('click', function() {
-        
-        // Continue with normal quiz start behavior
-        document.getElementById('quiz-entry').style.display = 'none';
-        document.getElementById('quiz').style.display = 'block';
-        loadQuestion(0);
-        startCountdown('countdown-timer', 15 * 60); // 15 minute countdown
-    });
-    
-    // Option selection
-    document.querySelectorAll('.option').forEach(option => {
-        option.addEventListener('click', function() {
-            selectOption(this);
-        });
-    });
-    
-            // Add conversion tracking for results completion
-        document.getElementById('unlock-button').addEventListener('click', function() {
-            
-            // Redirect to form fill page with affiliate link
-            window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
-        });
-    
-    // Exit intent popup
-    document.getElementById('popup-stay').addEventListener('click', function() {
-        document.getElementById('exit-popup').style.display = 'none';
-    });
-    
-    document.getElementById('popup-leave').addEventListener('click', function() {
-        document.getElementById('exit-popup').style.display = 'none';
-    });
-    
-    // Simulate exit intent
-    setTimeout(function() {
-        if (document.getElementById('quiz').style.display === 'block') {
-            document.getElementById('exit-popup').style.display = 'flex';
-        }
-    }, 30000);
-});
-        
-        function startCountdown(elementId, seconds) {
-            const element = document.getElementById(elementId);
-            let remainingSeconds = seconds;
-            
-            function updateCountdown() {
-                const minutes = Math.floor(remainingSeconds / 60);
-                const seconds = remainingSeconds % 60;
-                element.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                if (remainingSeconds <= 0) {
-                    clearInterval(timerId);
-                    return;
-                }
-                
-                remainingSeconds--;
-            }
-            
-            updateCountdown();
-            const timerId = setInterval(updateCountdown, 1000);
-            
-            return timerId;
-        }
-        
-        function loadQuestion(index) {
-            const questionData = questions[index];
-            document.getElementById('current-question').textContent = index + 1;
-            document.getElementById('question-text').textContent = questionData.text;
-            
-            const options = document.querySelectorAll('.option');
-            options.forEach((option, i) => {
-                // Clear any previous selection
-                option.classList.remove('selected');
-                
-                // Update option text (keep the letter div)
-                const optionContent = option.querySelector('div:last-child');
-                optionContent.textContent = questionData.options[i];
-            });
-            
-            document.querySelector('.education-text').textContent = questionData.education;
-            
-            // Update progress bar
-            const progress = ((index + 1) / questions.length) * 100;
-            document.getElementById('progress').style.width = `${progress}%`;
-        }
-        
-        function selectOption(optionElement) {
-            // Remove selection from all options
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Add selection to clicked option
-            optionElement.classList.add('selected');
-            
-            // Store answer
-            const answer = optionElement.getAttribute('data-value');
-            answers[currentQuestion] = answer;
-            
-            // Add gold pulse animation
-            optionElement.style.animation = 'goldPulse 0.5s';
-            setTimeout(() => {
-                optionElement.style.animation = '';
-                nextQuestion();
-            }, 500);
-        }
-        
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion < questions.length) {
-                // Load next question
-                loadQuestion(currentQuestion);
-            } else {
-                // Quiz completed, show results
-                showResults();
-            }
-        }
-        
-        function showResults() {
-    document.getElementById('quiz').style.display = 'none';
-    document.getElementById('results').style.display = 'block';
-    
-    // Simulate calculation time
-    setTimeout(() => {
-        document.getElementById('calculating').style.display = 'none';
-        document.getElementById('results-content').style.display = 'block';
-        
-        // Calculate score (random score between 75-85)
-        const score = Math.floor(Math.random() * 11) + 75;
-        document.getElementById('score-value').textContent = score + '%';
-        
-        // Position score marker
-        const percentage = score / 100;
-        document.getElementById('score-marker').style.left = `${percentage * 100}%`;
-        
-        // IMMEDIATELY show the sticky CTA - make sure this is inside the timeout
-        const stickyButton = document.getElementById('sticky-cta');
-        if (stickyButton) {
-            stickyButton.style.display = 'block';
-        }
-    }, 1200);
-}
-
-        // Simplified sticky CTA functionality
-function handleStickyCTA() {
-    const stickyCta = document.getElementById('sticky-cta');
-    const resultsContent = document.getElementById('results-content');
-    
-    // Show sticky CTA when results are visible and immediately
-    if (resultsContent && resultsContent.style.display === 'block') {
-        stickyCta.style.display = 'block';
-    } else {
-        stickyCta.style.display = 'none';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const stickyUnlockButton = document.getElementById('sticky-unlock-button');
-    if (stickyUnlockButton) {
-        stickyUnlockButton.addEventListener('click', function() {
-            // Direct redirect to affiliate link
-            window.location.href = "https://glstrck.com/aff_c?offer_id=2300&aff_id=134431";
-        });
-    }
-});
-        
-        // Add exit intent detection
-        document.addEventListener('mouseleave', function(e) {
-            // Only trigger if mouse leaves the top of the page
-            if (e.clientY < 0) {
-                // Only show if quiz is active or results are showing but not completed
-                const quizActive = document.getElementById('quiz').style.display === 'block';
-                const resultsActive = document.getElementById('results').style.display === 'block' && 
-                                     document.getElementById('calculating').style.display === 'block';
-                
-                if (quizActive || resultsActive) {
-                    document.getElementById('exit-popup').style.display = 'flex';
-                }
-            }
-        });
-        
-        // Add enhanced animations and effects
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('mouseover', function() {
-                this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-            });
-            
-            option.addEventListener('mouseout', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
-            });
-        });
-        
-        // Add keyframe for gold pulse
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes goldPulse {
-                0% {
-                    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
-                }
-                70% {
-                    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
-                }
-                100% {
-                    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Add scroll handler to show/hide sticky CTA
-window.addEventListener('scroll', function() {
-    const stickyButton = document.getElementById('sticky-cta');
-    const resultsContent = document.getElementById('results-content');
-    const originalButton = document.getElementById('unlock-button');
-    
-    if (resultsContent && resultsContent.style.display === 'block' && stickyButton) {
-        // Only check visibility if we're on the results page
-        if (originalButton) {
-            const rect = originalButton.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                // Original button is visible, hide sticky
-                stickyButton.style.display = 'none';
-            } else {
-                // Original button not visible, show sticky
-                stickyButton.style.display = 'block';
-            }
-        }
-    }
-});
-
-        // Initialize countdown on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            startCountdown('countdown-timer', 15 * 60); // 15 minute countdown
-            
-            // Set static counter value instead of animation
-            const counterElement = document.querySelector('.counter');
-            if (counterElement) {
-                counterElement.textContent = '1247';
-            }
-        });
-    </script>
-    
-    <!-- Sticky CTA -->
-<div class="sticky-cta" id="sticky-cta" style="display: none;">
-    <button class="cta-button" id="sticky-unlock-button">VERIFY MY ELIGIBILITY NOW →</button>
-</div>
 </body>
 </html>
